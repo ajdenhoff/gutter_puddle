@@ -11,16 +11,79 @@
 <body>
   <main>
     <h1>gutter puddle</h1>
-
-    <!-- Chattable embed — manage this chat at https://iframe.chat/dashboard/ -->
-    <iframe id="chattable" src="https://iframe.chat/embed/?chat=13739958"
-            width="100%" height="500"></iframe>
   </main>
+
+  <!-- Chattable embed — manage this chat at https://iframe.chat/dashboard/ -->
+  <div class="chat-widget" id="chat-widget">
+    <div class="chat-widget__titlebar" id="chat-titlebar">
+      <span class="chat-widget__title">gutter puddle chat</span>
+      <div class="chat-widget__controls">
+        <button type="button" class="chat-widget__btn" id="chat-minimize" aria-label="Minimize" title="Minimize">−</button>
+        <button type="button" class="chat-widget__btn" id="chat-maximize" aria-label="Maximize" title="Maximize">□</button>
+      </div>
+    </div>
+    <div class="chat-widget__body">
+      <iframe id="chattable" src="https://iframe.chat/embed/?chat=13739958"
+              width="380" height="460"></iframe>
+    </div>
+  </div>
 
   <script>
     // chattable.css is fetched from this origin and injected into the iframe,
     // so url() paths in it resolve against iframe.chat (e.g. /media/wvy.gif).
     chattable.initialize({ stylesheet: "/chattable.css" });
+
+    (function () {
+      var widget = document.getElementById("chat-widget");
+      var titlebar = document.getElementById("chat-titlebar");
+      var minimizeBtn = document.getElementById("chat-minimize");
+      var maximizeBtn = document.getElementById("chat-maximize");
+
+      function setState(state) {
+        widget.classList.remove("is-minimized", "is-maximized");
+        if (state === "minimized") {
+          widget.classList.add("is-minimized");
+          maximizeBtn.textContent = "□";
+          maximizeBtn.setAttribute("aria-label", "Maximize");
+          maximizeBtn.title = "Maximize";
+        } else if (state === "maximized") {
+          widget.classList.add("is-maximized");
+          maximizeBtn.textContent = "❐";
+          maximizeBtn.setAttribute("aria-label", "Restore");
+          maximizeBtn.title = "Restore";
+        } else {
+          maximizeBtn.textContent = "□";
+          maximizeBtn.setAttribute("aria-label", "Maximize");
+          maximizeBtn.title = "Maximize";
+        }
+      }
+
+      minimizeBtn.addEventListener("click", function () {
+        if (widget.classList.contains("is-minimized")) {
+          setState("normal");
+        } else {
+          setState("minimized");
+        }
+      });
+
+      maximizeBtn.addEventListener("click", function () {
+        if (widget.classList.contains("is-maximized")) {
+          setState("normal");
+        } else {
+          setState("maximized");
+        }
+      });
+
+      titlebar.addEventListener("dblclick", function () {
+        if (widget.classList.contains("is-minimized")) {
+          setState("normal");
+        } else if (widget.classList.contains("is-maximized")) {
+          setState("normal");
+        } else {
+          setState("maximized");
+        }
+      });
+    })();
   </script>
 </body>
 </html>
