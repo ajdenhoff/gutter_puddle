@@ -1,0 +1,9 @@
+{
+  "name": "gutter-puddle",
+  "private": true,
+  "version": "0.0.0",
+  "description": "Static site with a Chattable chatroom embed",
+  "scripts": {
+    "dev": "npx --yes serve . -l 3000"
+  }
+}
