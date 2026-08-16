@@ -18,9 +18,9 @@
   </main>
 
   <script>
-    // Theme options are listed at https://iframe.chat/demo/
-    // Swap for { stylesheet: "chattable.css" } to style the chat yourself.
-    chattable.initialize({ theme: "moderno" });
+    // chattable.css is fetched from this origin and injected into the iframe,
+    // so url() paths in it resolve against iframe.chat (e.g. /media/wvy.gif).
+    chattable.initialize({ stylesheet: "/chattable.css" });
   </script>
 </body>
 </html>

@@ -12,9 +12,12 @@ ready to deploy on Vercel.
 
 Chat ID `13739958`, managed at [iframe.chat/dashboard](https://iframe.chat/dashboard/).
 
-Styling the chat itself is done through `chattable.initialize()` at the bottom
-of `index.html` — either a prebuilt `theme` (see [the demo](https://iframe.chat/demo/))
-or `{ stylesheet: "chattable.css" }` pointing at your own file in this directory.
+The chat's own look lives in `chattable.css`, loaded via
+`chattable.initialize({ stylesheet: "/chattable.css" })` at the bottom of
+`index.html`. The loader script fetches that file from this site and injects it
+*inside* the iframe, so `url()` paths in it resolve against `iframe.chat` —
+which is why `/media/wvy.gif` works. Prebuilt themes are the alternative:
+`{ theme: "retrowave red" }`, listed at [the demo](https://iframe.chat/demo/).
 
 ## Local preview
 
