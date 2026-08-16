@@ -8,11 +8,9 @@ ready to deploy on Vercel.
 - `index.html` — the page, including the Chattable script + iframe
 - `styles.css` — minimal page styling (this is *not* the chat's stylesheet)
 
-## Finishing the chat setup
+## The chat
 
-1. Create a chat at [iframe.chat/dashboard](https://iframe.chat/dashboard/).
-2. Open its "embed instructions" and copy the chat ID.
-3. Replace `YOUR_CHAT_ID` in the iframe `src` in `index.html`.
+Chat ID `13739958`, managed at [iframe.chat/dashboard](https://iframe.chat/dashboard/).
 
 Styling the chat itself is done through `chattable.initialize()` at the bottom
 of `index.html` — either a prebuilt `theme` (see [the demo](https://iframe.chat/demo/))
