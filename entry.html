@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>gutter puddle</title>
+  <title>gutter puddle \ bookshelf</title>
   <link rel="icon" href="data:,">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,16 +13,26 @@
 </head>
 <body>
   <header class="site-header">
-    <h1>gutter puddle</h1>
+    <h1 class="site-path" id="entry-path">
+      <a class="site-path__link" href="index.html">gutter puddle</a>
+      <span class="site-path__sep">\</span>
+      <a class="site-path__link" href="bookshelf.html">bookshelf</a>
+      <span class="site-path__sep">\</span>
+      <span class="site-path__current" id="entry-path-title">entry</span>
+    </h1>
   </header>
 
   <main class="site-main">
-    <nav class="site-nav">
-      <a class="site-nav__link" href="bookshelf.html">bookshelf</a>
-    </nav>
+    <article class="entry-page" id="entry-page" hidden>
+      <p class="entry-page__meta" id="entry-meta"></p>
+      <div class="entry-page__body" id="entry-body"></div>
+      <p class="entry-page__external" id="entry-external" hidden>
+        <a id="entry-external-link" href="#" target="_blank" rel="noopener noreferrer">open external link</a>
+      </p>
+    </article>
+    <p id="entry-error" class="entry-page__error" hidden>Entry not found.</p>
   </main>
 
-  <!-- Chattable embed — manage this chat at https://iframe.chat/dashboard/ -->
   <div class="chat-widget" id="chat-widget">
     <div class="chat-widget__titlebar" id="chat-titlebar">
       <span class="chat-widget__title">gutter puddle chat</span>
@@ -37,6 +47,7 @@
     </div>
   </div>
 
+  <script src="entry.js"></script>
   <script src="chat-widget.js"></script>
 </body>
 </html>
