@@ -1,5 +1,13 @@
 :root {
-  color-scheme: light dark;
+  color-scheme: light;
+  --green-dark: #1a2e1a;
+  --green-mid: #3a4a3a;
+  --green-light: #5a735a;
+  --green-sage: #a8b2a0;
+  --grey-bg: #b0b0a8;
+  --grey-light: #c8c8c0;
+  --cream: #f5f4ef;
+  --text: #2a302a;
 }
 
 * {
@@ -10,20 +18,48 @@ body {
   margin: 0;
   min-height: 100vh;
   display: flex;
-  justify-content: center;
-  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  flex-direction: column;
+  font-family: "Archivo Black", system-ui, sans-serif;
   line-height: 1.5;
+  color: var(--text);
+  background-color: var(--grey-light);
 }
 
-main {
+.site-header {
   width: 100%;
-  max-width: 48rem;
-  padding: 2rem 1.25rem;
+  padding: 1.25rem 1.5rem;
+  background: var(--green-dark);
+  background: linear-gradient(
+    180deg,
+    #142414 0%,
+    var(--green-dark) 55%,
+    var(--green-mid) 100%
+  );
+  border-bottom: 1px solid #0f1a0f;
+  box-shadow:
+    0 1px 0 rgba(168, 178, 160, 0.15),
+    0 4px 12px rgba(26, 34, 26, 0.35);
 }
 
-h1 {
-  font-size: 1.75rem;
-  margin: 0 0 1.5rem;
+.site-header h1 {
+  margin: 0;
+  font-size: clamp(1.5rem, 4vw, 2.25rem);
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  text-transform: lowercase;
+  color: var(--cream);
+  text-shadow: 1px 1px 2px rgba(15, 26, 15, 0.8);
+}
+
+.site-main {
+  flex: 1;
+  width: 100%;
+  padding: 2rem 1.5rem;
+  background-color: var(--green-sage);
+  background-image:
+    linear-gradient(to right, rgba(26, 46, 26, 0.18) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(26, 46, 26, 0.18) 1px, transparent 1px);
+  background-size: 16px 16px;
 }
 
 /* Floating chat widget — bottom-right window */
@@ -38,10 +74,11 @@ h1 {
   flex-direction: column;
   border-radius: 10px;
   overflow: hidden;
+  border: 1px solid var(--green-light);
   box-shadow:
-    0 4px 24px rgba(0, 0, 0, 0.18),
-    0 0 0 1px rgba(0, 0, 0, 0.08);
-  background: #1a1a1a;
+    0 0 4px rgba(245, 244, 239, 0.35),
+    0 4px 16px rgba(26, 34, 26, 0.35);
+  background: var(--green-mid);
   transition:
     width 0.2s ease,
     height 0.2s ease,
@@ -56,16 +93,27 @@ h1 {
   justify-content: space-between;
   gap: 0.5rem;
   padding: 0.5rem 0.625rem;
-  background: #2a2a2a;
-  color: #f0f0f0;
+  background: var(--green-dark);
+  background: linear-gradient(
+    0deg,
+    var(--green-mid) 0%,
+    var(--green-sage) 50%,
+    var(--green-mid) 100%
+  );
+  border-bottom: 1px solid var(--green-light);
+  color: var(--cream);
   cursor: default;
   user-select: none;
   flex-shrink: 0;
+  font-family: "Archivo Black", system-ui, sans-serif;
+  text-shadow: 1px 1px 2px rgba(26, 34, 26, 0.6);
 }
 
 .chat-widget__title {
-  font-size: 0.875rem;
-  font-weight: 600;
+  font-size: 0.75rem;
+  font-weight: 400;
+  letter-spacing: 0.03em;
+  text-transform: lowercase;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -94,7 +142,7 @@ h1 {
 }
 
 .chat-widget__btn:hover {
-  background: rgba(255, 255, 255, 0.12);
+  background: rgba(245, 244, 239, 0.15);
 }
 
 .chat-widget__body {
