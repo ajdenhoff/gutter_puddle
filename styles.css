@@ -200,6 +200,42 @@ body {
   margin-bottom: 0;
 }
 
+.entry-page__body h2,
+.entry-page__body h3 {
+  margin: 1.5rem 0 0.75rem;
+  font-family: "Archivo Black", system-ui, sans-serif;
+  font-weight: 400;
+  text-transform: lowercase;
+  color: var(--green-dark);
+}
+
+.entry-page__body h2:first-child,
+.entry-page__body h3:first-child {
+  margin-top: 0;
+}
+
+.entry-page__body blockquote {
+  margin: 0 0 1rem;
+  padding: 0.5rem 1rem;
+  border-left: 3px solid var(--green-light);
+  font-family: system-ui, sans-serif;
+  font-style: italic;
+  color: var(--green-mid);
+}
+
+.entry-page__body a {
+  color: var(--green-dark);
+}
+
+.entry-page__image {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 0 0 1rem;
+  border: 1px solid var(--green-light);
+  border-radius: 6px;
+}
+
 .entry-page__external {
   margin: 1.25rem 0 0;
   font-family: system-ui, sans-serif;

@@ -2,17 +2,15 @@
   var list = document.getElementById("bookshelf-list");
   var empty = document.getElementById("bookshelf-empty");
 
-  fetch("bookshelf.json")
-    .then(function (response) {
-      if (!response.ok) {
-        throw new Error("Could not load bookshelf.json");
-      }
-      return response.json();
-    })
-    .then(function (data) {
-      var entries = data.entries || [];
+  var query =
+    '*[_type == "boardEntry" && board->slug.current == "bookshelf"] ' +
+    "| order(publishedAt desc) " +
+    '{ title, "slug": slug.current, author, publishedAt, excerpt, url }';
 
-      if (!entries.length) {
+  window
+    .sanityQuery(query)
+    .then(function (entries) {
+      if (!entries || !entries.length) {
         empty.hidden = false;
         return;
       }
@@ -20,19 +18,23 @@
       entries.forEach(function (entry) {
         var item = document.createElement("a");
         item.className = "bookshelf-entry";
-        item.href = "entry.html?slug=" + encodeURIComponent(entry.slug);
+        item.href = "entry.html?board=bookshelf&slug=" + encodeURIComponent(entry.slug);
 
         var title = document.createElement("h2");
         title.className = "bookshelf-entry__title";
         title.textContent = entry.title;
 
+        var date = entry.publishedAt
+          ? new Date(entry.publishedAt).toLocaleDateString()
+          : "";
+
         var meta = document.createElement("p");
         meta.className = "bookshelf-entry__meta";
-        meta.textContent = [entry.author, entry.date].filter(Boolean).join(" · ");
+        meta.textContent = [entry.author, date].filter(Boolean).join(" · ");
 
         var description = document.createElement("p");
         description.className = "bookshelf-entry__description";
-        description.textContent = entry.description || "";
+        description.textContent = entry.excerpt || "";
 
         item.appendChild(title);
         if (meta.textContent) {
@@ -45,7 +47,8 @@
         list.appendChild(item);
       });
     })
-    .catch(function () {
+    .catch(function (err) {
+      console.error(err);
       empty.hidden = false;
       empty.textContent = "Could not load the bookshelf.";
     });

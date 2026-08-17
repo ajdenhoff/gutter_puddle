@@ -1,0 +1,4 @@
+{
+  "extends": "@sanity/typescript-config/studio/tsconfig.json",
+  "include": ["./sanity.config.ts", "./schemaTypes/**/*.ts"]
+}

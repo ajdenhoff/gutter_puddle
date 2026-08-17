@@ -1,6 +1,8 @@
 (function () {
   var params = new URLSearchParams(window.location.search);
   var slug = params.get("slug");
+  var boardSlug = params.get("board") || "bookshelf";
+
   var pathTitle = document.getElementById("entry-path-title");
   var page = document.getElementById("entry-page");
   var meta = document.getElementById("entry-meta");
@@ -11,42 +13,30 @@
 
   if (!slug) {
     error.hidden = false;
-    pathTitle.textContent = "entry";
     return;
   }
 
-  fetch("bookshelf.json")
-    .then(function (response) {
-      if (!response.ok) {
-        throw new Error("Could not load bookshelf.json");
-      }
-      return response.json();
-    })
-    .then(function (data) {
-      var entry = (data.entries || []).find(function (item) {
-        return item.slug === slug;
-      });
+  var query =
+    '*[_type == "boardEntry" && slug.current == $slug && board->slug.current == $board][0]' +
+    "{ title, author, publishedAt, url, body }";
 
+  window
+    .sanityQuery(query, { slug: slug, board: boardSlug })
+    .then(function (entry) {
       if (!entry) {
         error.hidden = false;
-        pathTitle.textContent = "entry";
         return;
       }
 
-      document.title = "gutter puddle \\ bookshelf \\ " + entry.title;
+      document.title = "gutter puddle \\ " + boardSlug + " \\ " + entry.title;
       pathTitle.textContent = entry.title;
-      meta.textContent = [entry.author, entry.date].filter(Boolean).join(" · ");
 
-      var paragraphs = entry.body || [];
-      if (typeof paragraphs === "string") {
-        paragraphs = [paragraphs];
-      }
+      var date = entry.publishedAt
+        ? new Date(entry.publishedAt).toLocaleDateString()
+        : "";
+      meta.textContent = [entry.author, date].filter(Boolean).join(" · ");
 
-      paragraphs.forEach(function (text) {
-        var paragraph = document.createElement("p");
-        paragraph.textContent = text;
-        body.appendChild(paragraph);
-      });
+      body.innerHTML = window.renderPortableText(entry.body);
 
       if (entry.url) {
         external.hidden = false;
@@ -55,7 +45,8 @@
 
       page.hidden = false;
     })
-    .catch(function () {
+    .catch(function (err) {
+      console.error(err);
       error.hidden = false;
       error.textContent = "Could not load this entry.";
     });

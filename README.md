@@ -5,8 +5,23 @@ ready to deploy on Vercel.
 
 ## Files
 
-- `index.html` — the page, including the Chattable script + iframe
-- `styles.css` — minimal page styling (this is *not* the chat's stylesheet)
+- `index.html` — the homepage, including the Chattable script + iframe
+- `bookshelf.html` / `bookshelf.js` — the bookshelf board listing, reads entries from Sanity
+- `entry.html` / `entry.js` — a single board entry page, works for any board via `?board=` in the URL
+- `sanity-config.js` — public project ID/dataset for the site's Sanity reads
+- `sanity-client.js` — tiny fetch-based Sanity client (no npm dependency)
+- `portable-text.js` — renders Sanity's rich text (Portable Text) to HTML
+- `styles.css` — site styling (this is *not* the chat's stylesheet)
+- `studio/` — the Sanity Studio admin app for adding/editing board entries (see `studio/README.md`)
+
+## Admin backend (Sanity)
+
+Board entries (title, rich text body with inline images, etc.) are managed in
+[Sanity](https://sanity.io) rather than hardcoded. Multiple people can be
+invited to log into the Studio and add content — no shared password needed.
+
+See `studio/README.md` for one-time setup (creating the project, inviting
+members, and configuring CORS so the public site can read the data).
 
 ## The chat
 
