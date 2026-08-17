@@ -56,7 +56,6 @@ body {
   object-fit: contain;
   object-position: center right;
   transform: translateY(-50%);
-  mix-blend-mode: lighten;
   pointer-events: none;
 }
 
